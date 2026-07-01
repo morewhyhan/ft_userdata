@@ -1,0 +1,25 @@
+# === 私密配置（含 API Key / Secret）===
+user_data/config.private.json
+
+# === 运行时生成 ===
+user_data/backtest_results/
+user_data/hyperopt_results/
+user_data/hyperopts/
+user_data/freqaimodels/
+user_data/plot/
+user_data/logs/
+user_data/data/
+
+# === 数据库 ===
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+
+# === 系统杂项 ===
+.DS_Store
+Thumbs.db
