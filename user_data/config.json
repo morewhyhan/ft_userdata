@@ -45,6 +45,19 @@
     "pair_whitelist": [],
     "pair_blacklist": [
       "WBTC/USDT",
+      "AAPL/USDT:USDT", "AMZN/USDT:USDT", "MSFT/USDT:USDT", "GOOGL/USDT:USDT", "NVDA/USDT:USDT",
+      "TSLA/USDT:USDT", "META/USDT:USDT", "AMD/USDT:USDT", "INTC/USDT:USDT", "COIN/USDT:USDT",
+      "MSTR/USDT:USDT", "GME/USDT:USDT", "PLTR/USDT:USDT", "MU/USDT:USDT", "DELL/USDT:USDT",
+      "CSCO/USDT:USDT", "IBM/USDT:USDT", "ORCL/USDT:USDT", "QCOM/USDT:USDT", "AMAT/USDT:USDT",
+      "COST/USDT:USDT", "NFLX/USDT:USDT", "ARM/USDT:USDT", "MRVL/USDT:USDT", "TSM/USDT:USDT",
+      "HOOD/USDT:USDT", "AVGO/USDT:USDT", "COHR/USDT:USDT", "LLY/USDT:USDT", "NOK/USDT:USDT",
+      "F/USDT:USDT", "BB/USDT:USDT", "GEV/USDT:USDT", "RKLB/USDT:USDT", "RDW/USDT:USDT",
+      "LUNR/USDT:USDT", "ASTS/USDT:USDT", "SNDK/USDT:USDT", "CRWD/USDT:USDT", "WDC/USDT:USDT",
+      "HIMS/USDT:USDT", "AAOI/USDT:USDT",
+      "XAU/USDT:USDT", "XAG/USDT:USDT", "XPD/USDT:USDT", "XPT/USDT:USDT", "XCU/USDT:USDT",
+      "USO/USDT:USDT", "QQQ/USDT:USDT", "SPY/USDT:USDT", "IWM/USDT:USDT", "SOXL/USDT:USDT",
+      "EWJ/USDT:USDT", "EWY/USDT:USDT", "XLE/USDT:USDT", "URNM/USDT:USDT", "USAR/USDT:USDT",
+      "SMH/USDT:USDT",
       "(UST|FDUSD|BUSD|CUSDT|DAI|PAX|PAXG|SUSD|TUSD|USDC|USDT|VAI|USDN)/.*"
     ]
   },
@@ -58,16 +71,24 @@
   "pairlists": [
     {
       "method": "VolumePairList",
-      "number_assets": 350,
+      "number_assets": 500,
       "sort_key": "quoteVolume",
       "refresh_period": 86400,
       "lookback_days": 3,
       "lookback_timeframe": "1d"
     },
     {
+      "method": "SpreadFilter",
+      "max_spread_ratio": 0.005
+    },
+    {
+      "method": "AgeFilter",
+      "min_days_listed": 30
+    },
+    {
       "method": "VolatilityFilter",
       "lookback_days": 20,
-      "max_volatility": 0.25
+      "max_volatility": 0.50
     },
     {
       "method": "MeanRevertFilter",
