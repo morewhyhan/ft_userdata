@@ -11,6 +11,7 @@ import warnings
 warnings.simplefilter(action="ignore", category=RuntimeWarning)
 TMP_HOLD = []
 TMP_HOLD1 = []
+TMP_HOLD_MAX_PROFIT = {}  # track max profit for trades in TMP_HOLD
 
 
 class E0V1E(IStrategy):
@@ -163,6 +164,9 @@ class E0V1E(IStrategy):
         ):
             if trade.id not in TMP_HOLD:
                 TMP_HOLD.append(trade.id)
+                TMP_HOLD_MAX_PROFIT[trade.id] = current_profit
+            elif current_profit > TMP_HOLD_MAX_PROFIT.get(trade.id, 0):
+                TMP_HOLD_MAX_PROFIT[trade.id] = current_profit
 
         if (trade.open_rate - current_candle["ma120"]) / trade.open_rate >= 0.1:
             if trade.id not in TMP_HOLD1:
@@ -181,6 +185,13 @@ class E0V1E(IStrategy):
             TMP_HOLD1.remove(trade.id)
             return "ma120_sell_fast"
 
+        if trade.id in TMP_HOLD:
+            max_profit = TMP_HOLD_MAX_PROFIT.get(trade.id, 0)
+            if max_profit > 0.02 and current_profit < max_profit / 3:
+                TMP_HOLD.remove(trade.id)
+                del TMP_HOLD_MAX_PROFIT[trade.id]
+                return "ma120_profit_protect"
+
         if (
             trade.id in TMP_HOLD
             and current_candle["close"] < current_candle["ma120"]
@@ -188,6 +199,7 @@ class E0V1E(IStrategy):
         ):
             if min_profit <= -0.1:
                 TMP_HOLD.remove(trade.id)
+                del TMP_HOLD_MAX_PROFIT[trade.id]
                 return "ma120_sell"
 
         return None
